@@ -1,0 +1,112 @@
+@font-face {
+  font-family: "DM Sans";
+  src: url("../fonts/DMSans-Regular.ttf");
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-color: hsl(27, 66%, 92%);
+  font-family: "DM Sans";
+  font-size: 100%;
+}
+.container {
+  max-width: 350px;
+  width: 100%;
+  margin: 50px 0;
+}
+#balance {
+  color: #fff;
+  background-color: hsl(10, 79%, 65%);
+  border-radius: 10px;
+  display: flex;
+  width: 100%;
+  padding: 15px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+#balance h5 {
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+#balance .balance-number {
+  font-weight: 700;
+}
+#balance .responsive-img {
+  max-width: 100%;
+}
+#spending {
+  width: 100%;
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+}
+#spending h3 {
+  font-size: 1.5em;
+  margin-bottom: 50px;
+  color: hsl(25, 47%, 15%);
+}
+#spending #spending-chart .column {
+  height: 250px;
+  max-width: 100%;
+  border-bottom: 2px solid hsl(27, 66%, 92%);
+  margin-bottom: 20px;
+  color: hsl(28, 10%, 53%);
+  --labels-size: 60px;
+}
+#spending #spending-chart .column tbody th {
+  margin-top: 30px;
+}
+#spending #spending-chart .column tbody td {
+  border-radius: 5px;
+  --color: hsl(10, 79%, 65%);
+}
+#spending #spending-chart .column tbody td.active {
+  --color: hsl(186, 34%, 60%);
+}
+#spending #spending-chart .column tbody td.active:hover {
+  --color: hsla(186, 34%, 60%, 0.6);
+}
+#spending #spending-chart .column tbody td:hover {
+  --color: hsla(10, 79%, 65%, 0.6);
+  cursor: pointer;
+}
+#spending #spending-chart .column tbody td .tooltip {
+  bottom: 105%;
+}
+#spending #spending-chart .column tbody td .tooltip::after {
+  content: none;
+}
+#spending #monthly {
+  margin-bottom: 15px;
+}
+#spending #monthly .monthly-number {
+  font-weight: 700;
+  font-size: 1.75em;
+  color: hsl(25, 47%, 15%);
+}
+#spending #monthly h5 {
+  font-weight: 400;
+  color: hsl(28, 10%, 53%);
+}
+#spending #monthly div {
+  float: right;
+  margin-top: -40px;
+  text-align: right;
+}
+#spending #monthly div strong {
+  color: hsl(25, 47%, 15%);
+}
+@media screen and (min-width: 1024px) {
+  .container {
+    max-width: 400px;
+  }
+}

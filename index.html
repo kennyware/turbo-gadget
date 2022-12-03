@@ -1,0 +1,140 @@
+<!-- Next thing to do is: Pull in data from json file and interpolate it in html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/charts.min.css" />
+    <title>Expenses</title>
+  </head>
+  <body>
+    <main class="container">
+      <section id="balance">
+        <div>
+          <h5>My balance</h5>
+          <p class="balance-number">$921.48</p>
+        </div>
+        <img src="./images/logo.svg" alt="logo" class="responsive-img" />
+      </section>
+      <section id="spending">
+        <div id="spending-chart">
+          <h3>Spending - Last 7 Days</h3>
+          <table
+            class="charts-css column hide-data show-labels datasets-spacing-7"
+          >
+            <caption>
+              Spending - Last 7 Days
+            </caption>
+
+            <thead>
+              <tr>
+                <th scope="col">Day</th>
+                <th scope="col">Amount</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <th scope="row">mon</th>
+                <td style="--size: 0">
+                  <span class="data">0</span>
+                  <span class="tooltip">0</span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">tue</th>
+                <td style="--size: 0">
+                  <span class="data">0</span>
+                  <span class="tooltip">0</span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">wed</th>
+                <td style="--size: 0">
+                  <span class="data">0</span>
+                  <span class="tooltip">0</span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">thu</th>
+                <td style="--size: 0">
+                  <span class="data">0</span>
+                  <span class="tooltip">0</span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row" class="active">fri</th>
+                <td style="--size: 0">
+                  <span class="data">0</span>
+                  <span class="tooltip">0</span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">sat</th>
+                <td style="--size: 0">
+                  <span class="data">0</span>
+                  <span class="tooltip">0</span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">sun</th>
+                <td style="--size: 0">
+                  <span class="data">0</span>
+                  <span class="tooltip">0</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="monthly">
+          <h5>Total this month</h5>
+          <p class="monthly-number">$478.33</p>
+          <div>
+            <strong>+2.4%</strong>
+            <p style="color: hsl(28, 10%, 53%)">from last month</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const d = new Date();
+      let today = d.toDateString().slice(0, 3).toLowerCase();
+
+      const tableRows = document.querySelectorAll("tbody tr");
+
+      fetch("./data.json")
+        .then((res) => res.json())
+        .then((data) => {
+          // Set the max so the bars look better
+          let max = 0;
+
+          data.forEach((i) => {
+            let amount = Math.round(i.amount);
+            if (amount > max) max = amount;
+          });
+
+          // Set the size, tooltip text, and screen-reader only data for the bars
+          for (let i = 0; i < data.length; i++) {
+            let amount = data[i].amount;
+            let size = Math.round(amount) / max;
+            let day = data[i].day;
+            tableRows[i]
+              .querySelector("td")
+              .setAttribute("style", `--size: ${size}`);
+            tableRows[i].querySelector(".data").innerHTML = amount;
+            tableRows[i].querySelector(".tooltip").innerHTML = "$" + amount;
+          }
+        });
+
+      tableRows.forEach((el) => {
+        if (el.querySelector("th").innerHTML === today) {
+          el.querySelector("td").classList.add("active");
+        }
+      });
+    </script>
+  </body>
+</html>
